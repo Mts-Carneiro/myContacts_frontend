@@ -1,35 +1,27 @@
-import { useEffect, useState } from "react"
-//import { UserContext } from "../../contexts/user.context"
+import { useContext } from "react"
+import {UserContext} from "../../contexts/user.context"
 import { iUserReturn } from "../../interfaces/user.interface"
-import api from "../../service/api"
-//import { iUserReturn } from "../../interfaces/user.interface"
-//import { CardUser } from "../userCard/userCard.component"
+import { CardUser } from "../userCard/userCard.component"
 
 
 
 export const ListUser = () => {
 
-    const [users, setUsers] = useState([])
-
-
-    useEffect(() => {
-        async function loadUsers() {
-            try{
-                const response = await api.get("/user");
-                setUsers(response.data);
-                console.log(users)
-            } catch(error){
-                console.log(error)
-            }
-        }
-        loadUsers()
-
-    })
-
-    return(
+    const { users, usersFiltered, filtered} = useContext(UserContext)
+    
+    return (
         <>
             <ul>
-                <li>teste 1</li>
+                {filtered.length === 0 ? (
+                    users.map((user: iUserReturn) => (
+                        <CardUser key={user.id} id={user.id} name={user.name} email={user.email} phone={user.phone} createdAt={user.createdAt} contacts={user.contacts} />
+                    ))                    
+                ):(
+                    usersFiltered.map((user: iUserReturn) => (
+                        <CardUser key={user.id} id={user.id} name={user.name} email={user.email} phone={user.phone} createdAt={user.createdAt} contacts={user.contacts} />
+                    ))
+                )
+                }
             </ul>
         </>
     )

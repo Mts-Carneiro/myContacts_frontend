@@ -6,8 +6,8 @@ export const userSherma = yup.object().shape({
     .required("É necessario inserir o nome do cliente!"),
   client_email: yup
     .string()
-    .required("É necessario inserir o nome do cliente!"),
+    .required("É necessario inserir o email do cliente!"),
   clinte_phone: yup
     .string()
-    .required("É necessario inserir o nome do cliente!"),
+    .required("É necessario inserir o contato do cliente!"),
 });

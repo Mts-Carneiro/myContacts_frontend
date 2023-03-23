@@ -2,7 +2,8 @@ import axios from "axios"
 
 
 const api = axios.create({
-    baseURL:"https://mycontacts-srtk.onrender.com"
+    //baseURL:"http://mycontacts-srtk.onrender.com/",
+    baseURL:"http://localhost:3500/",
 })
 
 

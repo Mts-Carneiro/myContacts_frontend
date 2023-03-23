@@ -1,12 +1,20 @@
+import { iContactsReturn } from "../../interfaces/user.interface"
 
 
 
-export const CardContacts = () => {
+export const CardContacts = (props: iContactsReturn) => {
+    const {name, email, phone} = props
     return (
         <li>
-            <h3>nome: Carlos</h3>
-            <span>email: carlos@mail.com</span>
-            <span>phone: 88 444 33333</span>
+            <div>
+                <h3>nome: {name}</h3>
+                <span>email: {email}</span>
+                <span>phone: {phone}</span>
+            </div>
+            <div>
+                <button>editar</button>
+                <button>delete</button>
+            </div>
         </li>
     )
 }

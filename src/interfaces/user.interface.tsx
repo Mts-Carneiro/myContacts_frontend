@@ -7,18 +7,19 @@ export interface iUserRegister {
 }
 
 export interface iContactsReturn {
+    id: string
     name: string
     email: string
     phone: number
-    createdAt: Date
+    createdAt: string
 }
 
 export interface iUserReturn {
     id: string
     name: string
     email: string
-    phone: number
-    createdAt: Date
-    contacts: []
+    phone: string
+    createdAt: string
+    contacts: iContactsReturn[]
 }
 
