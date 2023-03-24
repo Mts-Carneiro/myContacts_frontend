@@ -1,9 +1,14 @@
+import { ContactContext } from "../../contexts/contact.context"
 import { iContactsReturn } from "../../interfaces/user.interface"
+import { useContext } from "react"
 
 
 
 export const CardContacts = (props: iContactsReturn) => {
-    const {name, email, phone} = props
+
+    const {editModalOpen, deleteModalOpen} = useContext(ContactContext)
+
+    const {id, name, email, phone} = props
     return (
         <li>
             <div>
@@ -12,8 +17,8 @@ export const CardContacts = (props: iContactsReturn) => {
                 <span>phone: {phone}</span>
             </div>
             <div>
-                <button>editar</button>
-                <button>delete</button>
+                <button onClick={() => editModalOpen(id)}>editar</button>
+                <button onClick={() => deleteModalOpen(id)}>delete</button>
             </div>
         </li>
     )

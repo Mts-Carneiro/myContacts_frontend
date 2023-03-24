@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import ContactProvider from "./contact.context";
 import UserProvider from "./user.context";
 
 
@@ -10,7 +11,9 @@ interface iProvider {
 export const Provider = ({children}: iProvider) => {
     return(
         <UserProvider>
-            {children}
+            <ContactProvider>
+                {children}  
+            </ContactProvider>
         </UserProvider>
     )
 }

@@ -3,14 +3,20 @@
 export interface iUserRegister {
     name: string
     email: string
-    phone: number
+    phone: string
+}
+
+export interface iContactRegister {
+    name: string
+    email: string
+    phone: string
 }
 
 export interface iContactsReturn {
     id: string
     name: string
     email: string
-    phone: number
+    phone: string
     createdAt: string
 }
 

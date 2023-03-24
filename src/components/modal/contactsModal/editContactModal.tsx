@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { UserContext } from "../../../contexts/user.context";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { iUserRegister } from "../../../interfaces/user.interface";
+import { ContactContext } from "../../../contexts/contact.context";
+import { UserContext } from "../../../contexts/user.context";
 
 
 const customStyles = {
@@ -19,15 +20,17 @@ const customStyles = {
   };
 
 
-export const ModalUpdateUser = () => {
-    const {modalEditIsOpen, setModalEditIsOpen, updateUser, loadUsers} = useContext(UserContext)
+export const ModalUpdateContact = () => {
+    const {modalEditIsOpen, setModalEditIsOpen, updateContact, loadContacts} = useContext(ContactContext)
+    const {loadUsers} = useContext(UserContext)
 
     const {register, handleSubmit} = useForm<iUserRegister>()
 
     const submit =async (data: any) => {
-        updateUser(data)
-        setModalEditIsOpen(false)
+        updateContact(data)
         loadUsers()
+        loadContacts()
+        setModalEditIsOpen(false)
     }
 
     return(
@@ -44,7 +47,7 @@ export const ModalUpdateUser = () => {
                 </div>
                 <form onSubmit={handleSubmit(submit)}>
                     <h3>
-                        Nome do usuario:    
+                        Nome do contato:    
                     </h3>
                     <input 
                         id="name"

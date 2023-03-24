@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../contexts/user.context";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
-import { iUserRegister } from "../../../interfaces/user.interface";
+import { iContactRegister, iUserRegister } from "../../../interfaces/user.interface";
 
 
 const customStyles = {
@@ -16,35 +16,39 @@ const customStyles = {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
     },
-  };
+};
 
 
-export const ModalUpdateUser = () => {
-    const {modalEditIsOpen, setModalEditIsOpen, updateUser, loadUsers} = useContext(UserContext)
+export const ModalCreateContact = () => {
+    const { createNewContact, loadUsers, modalContactIsOpen, setContactModal, contactUserID} = useContext(UserContext)
 
-    const {register, handleSubmit} = useForm<iUserRegister>()
+    const {register, handleSubmit} = useForm<iContactRegister>()
 
-    const submit =async (data: any) => {
-        updateUser(data)
-        setModalEditIsOpen(false)
+    const submit =async (data: iUserRegister) => {
+        const newData = {
+            ...data,
+            user: contactUserID
+        }
+        createNewContact(newData)
         loadUsers()
+        setContactModal(false)
     }
 
     return(
         <div>
             <Modal 
-                isOpen={modalEditIsOpen}
-                onRequestClose={() => setModalEditIsOpen(false)}
+                isOpen={modalContactIsOpen}
+                onRequestClose={() => setContactModal(false)}
                 style={customStyles}
                 contentLabel="Example Modal"
             >
                 <div>
-                    <h3>Atualização cadastral do cliente</h3>
-                    <span onClick={() => setModalEditIsOpen(false)}>x</span>
+                    <h3>Cadastro de novo contato</h3>
+                    <span onClick={() => setContactModal(false)}>x</span>
                 </div>
                 <form onSubmit={handleSubmit(submit)}>
                     <h3>
-                        Nome do usuario:    
+                        Nome do contato:    
                     </h3>
                     <input 
                         id="name"
@@ -57,7 +61,7 @@ export const ModalUpdateUser = () => {
                     </h3>
                     <input 
                         id="email"
-                        placeholder="E-mail do usuario"
+                        placeholder="E-mail do contato"
                         {...register("email")}
                     >
                     </input> 
@@ -70,7 +74,7 @@ export const ModalUpdateUser = () => {
                         {...register("phone")}
                     >
                     </input> 
-                    <button type="submit">Atualizar</button>
+                    <button type="submit">Adicionar</button>
                 </form>
             </Modal>
         </div>
