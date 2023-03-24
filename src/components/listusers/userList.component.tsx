@@ -2,6 +2,7 @@ import { useContext } from "react"
 import {UserContext} from "../../contexts/user.context"
 import { iUserReturn } from "../../interfaces/user.interface"
 import { CardUser } from "../userCard/userCard.component"
+import StyledList from "./styles"
 
 
 
@@ -12,7 +13,7 @@ export const ListUser = () => {
     return (
         <>
             {users.length !== 0 ? (
-                <ul>
+                <StyledList>
                     {filtered.length === 0 ? (
                         users.map((user: iUserReturn) => (
                             <CardUser key={user.id} id={user.id} name={user.name} email={user.email} phone={user.phone} createdAt={user.createdAt} contacts={user.contacts} />
@@ -25,7 +26,7 @@ export const ListUser = () => {
                             )
                        )
                     }  
-                </ul>
+                </StyledList>
             ):(
                 <h3>Você ainda não tem nenum cliente cadastrado.</h3>
             )
