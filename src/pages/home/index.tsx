@@ -1,6 +1,6 @@
 import { Header } from "../../components/header/header.componet"
 import { ListUser } from "../../components/listusers/userList.component"
-import { ModalCreateContact } from "../../components/modal/contactsModal/createUserModal"
+import { ModalCreateContact } from "../../components/modal/contactsModal/createContactModal"
 import { ModalDeleteContact } from "../../components/modal/contactsModal/deleteContactModal"
 import { ModalUpdateContact } from "../../components/modal/contactsModal/editContactModal"
 import { ModalCreateUser } from "../../components/modal/userModal/createUserModal"

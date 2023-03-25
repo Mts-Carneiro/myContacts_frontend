@@ -3,59 +3,67 @@ import { UserContext } from "../../../contexts/user.context";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { iUserRegister } from "../../../interfaces/user.interface";
-import { DivCreateModal } from "../styles";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { contactSherma } from "../../../schema/user.schema";
 import {AiOutlineCloseCircle} from "react-icons/ai"
-
+import { DivCreateModal } from "../styles";
 
 const customStyles = {
     content: {
-        width: "45%",
-        maxWidth: "550px",
-        height: "300px",
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-        borderRadius: "20px",
-        padding: "10px"
-      },
+      width: "45%",
+      maxWidth: "550px",
+      height: "300px",
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      borderRadius: "20px",
+      padding: "10px"
+    },
   };
 
 
-export const ModalUpdateUser = () => {
-    const {modalEditIsOpen, setModalEditIsOpen, updateUser, loadUsers} = useContext(UserContext)
+export const ModalCreateContact = () => {
+    const { createNewContact, loadUsers, modalContactIsOpen, setContactModal, contactUserID} = useContext(UserContext)
 
-    const {register, handleSubmit, reset} = useForm<iUserRegister>()
+    const {register, handleSubmit, formState: {errors}, reset} = useForm<iUserRegister>({
+        resolver: yupResolver(contactSherma)
+    })
 
-    const submit =async (data: any) => {
-        updateUser(data)
-        setModalEditIsOpen(false)
+    const submit =async (data: iUserRegister) => {
+        const newData = {
+            ...data,
+            user: contactUserID
+        }
+        createNewContact(newData)
         loadUsers()
+        setContactModal(false)
+        reset()
     }
 
     const close = () => {
-        setModalEditIsOpen(false)
+        setContactModal(false)
         reset()
     }
 
     return(
         <div>
             <Modal 
-                isOpen={modalEditIsOpen}
-                onRequestClose={() => setModalEditIsOpen(false)}
+                isOpen={modalContactIsOpen}
+                onRequestClose={() => setContactModal(false)}
                 style={customStyles}
                 contentLabel="Example Modal"
             >
                 <DivCreateModal>
                     <div className="header_div_modal">
-                        <h3>Atualização cadastral do cliente</h3>
+                        <h3>Cadastro de novo contato</h3>
                         <AiOutlineCloseCircle onClick={close} />
                     </div>
                     <form onSubmit={handleSubmit(submit)}>
                         <label>
-                            Nome do usuario:    
+                            Nome do contato:    
                         </label>
                         <input 
                             id="name"
@@ -63,15 +71,21 @@ export const ModalUpdateUser = () => {
                             {...register("name")}
                         >
                         </input> 
+                        <span>
+                            {errors.name?.message}
+                        </span>
                         <label>
                             Email:    
                         </label>
                         <input 
                             id="email"
-                            placeholder="E-mail do usuario"
+                            placeholder="E-mail do contato"
                             {...register("email")}
                         >
                         </input> 
+                        <span>
+                            {errors.name?.message}
+                        </span>
                         <label>
                             Numero para contato:    
                         </label>
@@ -81,7 +95,10 @@ export const ModalUpdateUser = () => {
                             {...register("phone")}
                         >
                         </input> 
-                        <button type="submit">Atualizar</button>
+                        <span>
+                            {errors.name?.message}
+                        </span>
+                        <button type="submit">Adicionar</button>
                     </form>
                 </DivCreateModal>
             </Modal>
